@@ -20,6 +20,7 @@
 default['mysql']['bind_address']               = attribute?('cloud') ? cloud['local_ipv4'] : ipaddress
 default['mysql']['port']                       = 3306
 default['mysql']['nice']                       = 0
+default['mysql']['enable_confd_dir']           = true
 
 case node["platform_family"]
 when "debian"
@@ -59,6 +60,7 @@ when "rhel", "fedora", "suse"
   default['mysql']['grants_path']                 = "/etc/mysql_grants.sql"
   # RHEL/CentOS mysql package does not support this option.
   default['mysql']['tunable']['innodb_adaptive_flushing'] = false
+  default['mysql']['enable_confd_dir']            = false
 when "freebsd"
   default['mysql']['server']['packages']      = %w{mysql55-server}
   default['mysql']['service_name']            = "mysql-server"
